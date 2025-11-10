@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Urbix Roleplay | Registro/Login</title>
+  <link rel="icon" type="image/png" href="./assets/icono.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ===========================
+       ESTILOS GENERALES
+    ============================ */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #1f1c2c, #928dab);
+      overflow: hidden;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    /* ===========================
+       CONTENEDOR PRINCIPAL
+    ============================ */
+    .container {
+      position: relative;
+      z-index: 1;
+      background: rgba(0, 0, 0, 0.75);
+      padding: 40px;
+      border-radius: 15px;
+      width: 350px;
+      text-align: center;
+      color: #fff;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+      border: 2px solid transparent;
+      background-clip: padding-box;
+      animation: fadeIn 1s ease forwards;
+      transition: transform 0.3s ease, border 0.3s ease, opacity 0.5s;
+    }
+
+    .container:hover {
+      transform: scale(1.03);
+      border: 2px solid #3b82f6;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #facc15;
+      text-shadow: 0 0 8px #facc15, 0 0 20px #3b82f6;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      transition: background 0.3s;
+    }
+
+    input:focus {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(45deg, #3b82f6, #facc15);
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background: linear-gradient(45deg, #facc15, #3b82f6);
+      transform: scale(1.05);
+    }
+
+    p {
+      font-size: 0.9em;
+    }
+
+    p a {
+      color: #1dd1a1;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    p a:hover {
+      color: #10ac84;
+    }
+
+    .form-container {
+      display: none;
+      opacity: 0;
+      transform: translateX(50px);
+      transition: all 0.5s ease;
+    }
+
+    .form-container.active {
+      display: block;
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ===========================
+       MENSAJE DE ALERTA BONITO
+    ============================ */
+    .toast {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.85);
+      color: #fff;
+      padding: 15px 25px;
+      border-radius: 10px;
+      font-size: 14px;
+      text-align: center;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.5s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      top: 40px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+</head>
+
+<body>
+  <canvas id="particles"></canvas>
+
+  <div class="container">
+    <!-- REGISTRO -->
+    <div id="register" class="form-container active">
+      <h2>Registrarse</h2>
+      <input type="email" id="reg-email" placeholder="Correo electrónico" />
+      <input type="password" id="reg-password" placeholder="Contraseña" />
+      <button onclick="register()">Registrar</button>
+      <p>¿Ya tienes cuenta? <a onclick="showLogin()">Inicia sesión</a></p>
+    </div>
+
+    <!-- LOGIN -->
+    <div id="login" class="form-container">
+      <h2>Iniciar Sesión</h2>
+      <input type="email" id="login-email" placeholder="Correo electrónico" />
+      <input type="password" id="login-password" placeholder="Contraseña" />
+      <button onclick="login()">Entrar</button>
+      <p>¿No tienes cuenta? <a onclick="showRegister()">Regístrate</a></p>
+    </div>
+  </div>
+
+  <!-- MENSAJE DE ALERTA -->
+  <div id="toast" class="toast"></div>
+
+  <script>
+    // ===========================
+    // CONFIGURACIÓN FIREBASE
+    // ===========================
+    const firebaseConfig = {
+      apiKey: "AIzaSyA0cACWpEw2oul2pGCeZu5gB-nXKM_GpvA",
+      authDomain: "gta-urbix-roleplay-f78af.firebaseapp.com",
+      projectId: "gta-urbix-roleplay-f78af",
+      storageBucket: "gta-urbix-roleplay-f78af.appspot.com",
+      messagingSenderId: "553857871061",
+      appId: "1:553857871061:web:7a474194806339c65c",
+      measurementId: "G-P2VQ0SX0R6"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // ===========================
+    // FUNCIÓN DE ALERTA PERSONALIZADA
+    // ===========================
+    function showToast(message, duration = 3500) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, duration);
+    }
+
+    // ===========================
+    // CAMBIO ENTRE FORMULARIOS
+    // ===========================
+    function showRegister() {
+      document.getElementById('register').classList.add('active');
+      document.getElementById('login').classList.remove('active');
+    }
+
+    function showLogin() {
+      document.getElementById('register').classList.remove('active');
+      document.getElementById('login').classList.add('active');
+    }
+
+    // ===========================
+    // REDIRECCIÓN
+    // ===========================
+    function redirectToMain() {
+      document.querySelector('.container').style.opacity = 0;
+      showToast("🔄 Iniciando sesión...");
+      setTimeout(() => { window.location.href = "index.html"; }, 800);
+    }
+
+    // ===========================
+    // REGISTRO CON VERIFICACIÓN
+    // ===========================
+    function register() {
+      const email = document.getElementById('reg-email').value.trim();
+      const password = document.getElementById('reg-password').value.trim();
+
+      if (!email || !password) {
+        showToast("⚠️ Completa todos los campos");
+        return;
+      }
+
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(userCredential => {
+          const user = userCredential.user;
+
+          user.sendEmailVerification()
+            .then(() => {
+              showToast("📩 Se envió un correo de verificación. Revisa tu bandeja y verifica antes de iniciar sesión.", 6000);
+              auth.signOut();
+              showLogin();
+            })
+            .catch(error => showToast("❌ Error al enviar correo: " + error.message));
+        })
+        .catch(error => showToast("❌ " + error.message));
+    }
+
+    // ===========================
+    // LOGIN CON VALIDACIÓN DE EMAIL
+    // ===========================
+    function login() {
+      const email = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value.trim();
+
+      if (!email || !password) {
+        showToast("⚠️ Completa todos los campos");
+        return;
+      }
+
+      auth.signInWithEmailAndPassword(email, password)
+        .then(userCredential => {
+          const user = userCredential.user;
+
+          if (user.emailVerified) {
+            showToast("✅ Bienvenido " + user.email);
+            redirectToMain();
+          } else {
+            showToast("⚠️ Verifica tu correo antes de continuar.");
+            auth.signOut();
+          }
+        })
+        .catch(error => showToast("❌ " + error.message));
+    }
+
+    // ===========================
+    // EFECTO DE PARTÍCULAS
+    // ===========================
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const particlesArray = [];
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = Math.random() * 1 - 0.5;
+        this.speedY = Math.random() * 1 - 0.5;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+      }
+      draw() {
+        ctx.fillStyle = 'rgba(255,255,255,0.7)';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function initParticles(num) {
+      for (let i = 0; i < num; i++) {
+        particlesArray.push(new Particle());
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particlesArray.forEach(p => p.update());
+      particlesArray.forEach(p => p.draw());
+      requestAnimationFrame(animate);
+    }
+
+    initParticles(80);
+    animate();
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
