@@ -1,0 +1,136 @@
+/* 🔹 RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #0d0d0d, #111, #1a1a1a);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* 🔹 FONDO DE PARTÍCULAS */
+canvas#bgCanvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* 🔹 SECCIÓN LOGIN/REGISTRO */
+.login-section {
+  background-color: rgba(17,17,17,0.95);
+  padding: 50px 40px;
+  border-radius: 15px;
+  box-shadow: 0 0 30px #303df3;
+  text-align: center;
+  width: 350px;
+  position: relative;
+}
+
+/* 🔹 ANIMACIÓN FADE-IN */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 🔹 TÍTULOS */
+h1 {
+  font-size: 2rem;
+  color: #303df3;
+  margin-bottom: 25px;
+}
+
+/* 🔹 INPUTS */
+input {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: #111;
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  box-shadow: 0 0 5px #303df3;
+  transition: 0.3s;
+}
+
+input:focus {
+  box-shadow: 0 0 15px #303df3;
+}
+
+/* 🔹 BOTÓN NEÓN */
+.btn-neon {
+  width: 100%;
+  padding: 12px;
+  background-color: #303df3;
+  color: #000;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 0 10px #303df3, 0 0 20px #303df3;
+  transition: all 0.3s;
+}
+
+.btn-neon:hover {
+  box-shadow: 0 0 20px #303df3, 0 0 40px #303df3;
+  transform: scale(1.05);
+}
+
+/* 🔹 ENLACES */
+.link-neon {
+  color: #303df3;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.link-neon:hover {
+  text-shadow: 0 0 10px #303df3;
+}
+
+/* 🔹 MENSAJES ÉXITO / ERROR */
+.success-msg,
+.error-msg {
+  display: none;
+  margin-top: 15px;
+  font-weight: bold;
+  animation: blink 1s infinite alternate;
+  font-size: 0.95rem;
+}
+
+.success-msg { color: #303df3; }
+.error-msg { color: #ff0040; }
+
+@keyframes blink {
+  0% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* 🔹 RESPONSIVE */
+@media (max-width: 400px) {
+  .login-section {
+    width: 90%;
+    padding: 40px 20px;
+  }
+
+  h1 {
+    font-size: 1.7rem;
+  }
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registro | Tienda GTA</title>
+<link rel="stylesheet" href="style-login.css">
+</head>
+<body>
+
+<!-- Fondo de partículas -->
+<canvas id="bgCanvas"></canvas>
+
+<section class="login-section fade-in">
+  <h1>Registrarse</h1>
+  <form id="registerForm">
+    <input type="text" id="newUsername" name="nombre" placeholder="Usuario" required>
+    <input type="email" id="newEmail" name="email" placeholder="Correo electrónico" required>
+    <input type="password" id="newPassword" name="password" placeholder="Contraseña" required>
+    <button type="submit" class="btn-neon">Registrar</button>
+  </form>
+  <p>¿Ya tienes cuenta? <a href="login.html" class="link-neon">Inicia sesión</a></p>
+  <div id="successMsg" class="success-msg" style="display:none;">Registro exitoso, ahora inicia sesión</div>
+</section>
+
+<!-- Scripts -->
+<script src="particles.js"></script>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script>
+  // Configuración de Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyCykHh0n-qNMDLtygDVCp0fUGgVoHlrk2k",
+    authDomain: "urbix-roleplay-shop.firebaseapp.com",
+    projectId: "urbix-roleplay-shop",
+    storageBucket: "urbix-roleplay-shop.firebasestorage.app",
+    messagingSenderId: "1020971611441",
+    appId: "1:1020971611441:web:6747b2bd362b2f70c0ac10",
+    measurementId: "G-KWR7CF9RGY"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  // Registro de usuario
+  const registerForm = document.getElementById('registerForm');
+
+  registerForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const nombre = registerForm['nombre'].value;
+    const email = registerForm['email'].value;
+    const password = registerForm['password'].value;
+
+    auth.createUserWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+
+        // Guardar info extra en Firestore
+        db.collection('users').doc(user.uid).set({
+          nombre: nombre,
+          email: email,
+          fechaRegistro: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        // Mostrar mensaje de éxito
+        document.getElementById('successMsg').style.display = 'block';
+        registerForm.reset();
+
+        // Redirigir al login después de 2 segundos
+        setTimeout(() => {
+          window.location.href = 'login.html';
+        }, 2000);
+
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  });
+</script>
+
+<script src="script.js"></script>
+</body>
+</html>
+

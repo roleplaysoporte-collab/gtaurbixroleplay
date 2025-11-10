@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login | Tienda GTA</title>
+<link rel="stylesheet" href="style-login.css">
+</head>
+<body>
+
+<!-- Fondo de partículas -->
+<canvas id="bgCanvas"></canvas>
+
+<section class="login-section fade-in">
+  <h1>Iniciar Sesión</h1>
+  <form id="loginForm">
+    <input type="email" id="loginEmail" name="email" placeholder="Correo electrónico" required>
+    <input type="password" id="loginPassword" name="password" placeholder="Contraseña" required>
+    <button type="submit" class="btn-neon">Entrar</button>
+  </form>
+  <p>¿No tienes cuenta? <a href="register.html" class="link-neon">Regístrate</a></p>
+  <div id="errorMsg" class="error-msg" style="display:none;">Usuario o contraseña incorrectos</div>
+</section>
+
+<!-- Scripts -->
+<script src="particles.js"></script>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script>
+  // Configuración de Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyCykHh0n-qNMDLtygDVCp0fUGgVoHlrk2k",
+    authDomain: "urbix-roleplay-shop.firebaseapp.com",
+    projectId: "urbix-roleplay-shop",
+    storageBucket: "urbix-roleplay-shop.firebasestorage.app",
+    messagingSenderId: "1020971611441",
+    appId: "1:1020971611441:web:6747b2bd362b2f70c0ac10",
+    measurementId: "G-KWR7CF9RGY"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  // Mantener sesión activa
+  auth.onAuthStateChanged(user => {
+    if(user){
+      // Si el usuario ya está logueado, redirige directamente a la tienda
+      window.location.href = 'index.html';
+    }
+  });
+
+  // Login
+  const loginForm = document.getElementById('loginForm');
+  const errorMsg = document.getElementById('errorMsg');
+
+  loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const email = loginForm['email'].value;
+    const password = loginForm['password'].value;
+
+    auth.signInWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        // Inicio de sesión exitoso
+        window.location.href = 'index.html';
+      })
+      .catch((error) => {
+        errorMsg.style.display = 'block';
+        console.error(error.message);
+      });
+  });
+
+  // Función para cerrar sesión (puedes llamarla desde cualquier botón)
+  function logout() {
+    auth.signOut().then(() => window.location.href = 'login.html');
+  }
+</script>
+
+<script src="script.js"></script>
+</body>
+</html>

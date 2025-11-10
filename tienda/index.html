@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tienda GTA | Urbix Roleplay</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Fondo de partículas -->
+<canvas id="bgCanvas"></canvas>
+
+<!-- Header / Menú -->
+<header id="header">
+  <nav>
+    <div class="logo">Urbix Roleplay Shop</div>
+    <p>Bienvenido, <span id="usuario"></span> 👋</p>
+    <div class="menu-toggle" id="mobile-menu">☰</div>
+    <ul class="nav-list">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#sobre">Sobre la tienda</a></li>
+      <li><a href="#productos">Productos</a></li>
+      <li><a href="#comprar">Cómo comprar</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+      <li><a href="http://127.0.0.1:5501/index.html">GTA|</a></li>
+      <li><button onclick="logout()" class="btn-neon logout-btn">Cerrar sesión</button></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Inicio Ultra Elegante -->
+<section id="inicio" class="fade-in inicio-section">
+  <div class="inicio-bg"></div> <!-- Fondo animado degradado o partículas -->
+  
+  <div class="inicio-contenido">
+    <h1>Bienvenido a <span>Urbix Roleplay Shop</span></h1>
+    <p>Sumérgete en la tienda oficial del servidor y descubre artículos exclusivos, vehículos únicos, propiedades VIP y mejoras que transformarán tu experiencia en GTA | Urbix Roleplay.</p>
+    <p class="subtitulo">¡Prepárate para llevar tu aventura al siguiente nivel!</p>
+  </div>
+</section>
+
+<!-- Sobre la tienda épica - versión 10 beneficios -->
+<section id="sobre" class="fade-in">
+  <h2>Sobre la Tienda</h2>
+  <p>Bienvenido a la tienda oficial de <strong>Urbix Roleplay</strong>. Aquí encontrarás todo lo que necesitas para llevar tu experiencia de GTA RP al siguiente nivel: vehículos exclusivos, propiedades VIP, paquetes de dinero y mejoras especiales para tu personaje. Cada artículo está diseñado pensando en nuestra comunidad para garantizar diversión, seguridad y exclusividad.</p>
+
+  <!-- Beneficios destacados -->
+  <div class="beneficios-grid">
+    <div class="beneficio">
+      <h3>🚗 Vehículos Exclusivos</h3>
+      <p>Accede a vehículos únicos que no encontrarás en ningún otro lugar del servidor.</p>
+    </div>
+    <div class="beneficio">
+      <h3>🏠 Propiedades VIP</h3>
+      <p>Compra casas y apartamentos en las mejores zonas del servidor para tu personaje.</p>
+    </div>
+    <div class="beneficio">
+      <h3>💰 Paquetes de Dinero</h3>
+      <p>Aumenta tu saldo dentro del juego de manera rápida, segura y confiable.</p>
+    </div>
+    <div class="beneficio">
+      <h3>⚡ Mejoras y Extras</h3>
+      <p>Obtén artículos exclusivos y mejoras que potenciarán tu experiencia de juego.</p>
+    </div>
+    <div class="beneficio">
+      <h3>🎁 Eventos Especiales</h3>
+      <p>Participa en sorteos, promociones y eventos especiales solo para clientes de la tienda.</p>
+    </div>
+    <div class="beneficio">
+      <h3>🛡️ Soporte Prioritario</h3>
+      <p>Recibe asistencia rápida y personalizada de nuestro equipo en Discord para cualquier duda o problema.</p>
+    </div>
+    <div class="beneficio">
+      <h3>🏆 Recompensas Exclusivas</h3>
+      <p>Obtén recompensas únicas por fidelidad y compras frecuentes dentro de la tienda.</p>
+    </div>
+    <div class="beneficio">
+      <h3>🌐 Acceso Global</h3>
+      <p>Disfruta de nuestros productos desde cualquier lugar y en cualquier momento.</p>
+    </div>
+    <div class="beneficio">
+      <h3>🎨 Personalización</h3>
+      <p>Personaliza tu experiencia con skins, vehículos y accesorios exclusivos.</p>
+    </div>
+    <div class="beneficio">
+      <h3>💡 Innovación Constante</h3>
+      <p>Estamos siempre actualizando y agregando nuevos artículos para mantener la tienda fresca y emocionante.</p>
+    </div>
+  </div>
+
+  <!-- Stats llamativos -->
+  <div class="tienda-stats">
+    <div class="stat">
+      <h3>500+</h3>
+      <p>Clientes satisfechos</p>
+    </div>
+    <div class="stat">
+      <h3>1200+</h3>
+      <p>Artículos vendidos</p>
+    </div>
+    <div class="stat">
+      <h3>10+</h3>
+      <p>Años de experiencia</p>
+    </div>
+  </div>
+</section>
+
+<!-- Productos Destacados Mejorados -->
+<section id="productos" class="fade-in">
+  <h2>Productos Destacados</h2>
+  <p>Descubre nuestros artículos más populares y exclusivos para tu experiencia en <strong>Urbix Roleplay</strong>. Compra de forma segura y recibe soporte prioritario.</p>
+
+  <div class="productos-grid">
+    <!-- Producto 1 -->
+    <div class="producto">
+      <span class="etiqueta popular">Popular</span>
+      <h3>🚗 Vehículo Especial</h3>
+      <p>Compra un vehículo exclusivo para tu personaje en el servidor.</p>
+      <p class="precio">USD</p>
+    </div>
+
+    <!-- Producto 2 -->
+    <div class="producto">
+      <span class="etiqueta nuevo">Nuevo</span>
+      <h3>🏠 Propiedad VIP</h3>
+      <p>Adquiere propiedades en las mejores zonas y asegúrate un espacio premium.</p>
+      <p class="precio">USD</p>
+    </div>
+
+    <!-- Producto 3 -->
+    <div class="producto">
+      <h3>💰 Paquete de Dinero</h3>
+      <p>Aumenta tu saldo dentro del juego de manera rápida y segura.</p>
+      <p class="precio">USD</p>
+    </div>
+
+    <!-- Producto 4 -->
+    <div class="producto">
+      <span class="etiqueta popular">Popular</span>
+      <h3>⚡ Kit de Mejoras</h3>
+      <p>Obtén mejoras exclusivas para potenciar tus habilidades y vehículos.</p>
+      <p class="precio">USD</p>
+    </div>
+
+    <!-- Producto 5 -->
+    <div class="producto">
+      <span class="etiqueta nuevo">Nuevo</span>
+      <h3>🎨 Personalización de Personaje</h3>
+      <p>Skins, accesorios y detalles únicos para tu personaje.</p>
+      <p class="precio">USD</p>
+    </div>
+
+    <!-- Producto 6 -->
+    <div class="producto">
+      <span class="etiqueta nuevo">Nuevo</span>
+      <h3>🛡️ Paquete de Seguridad</h3>
+      <p>Protege tus activos dentro del servidor con este paquete exclusivo.</p>
+      <p class="precio">USD</p>
+    </div>
+
+    <!-- Producto 7 -->
+    <div class="producto">
+      <h3>🎁 Evento Especial</h3>
+      <p>Participa en eventos exclusivos y recibe recompensas únicas.</p>
+      <p class="precio">USD</p>
+    </div>
+
+    <!-- Producto 8 -->
+    <div class="producto">
+      <span class="etiqueta popular">Popular</span>
+      <h3>🏆 Recompensas de Fidelidad</h3>
+      <p>Obtén recompensas especiales por compras frecuentes y lealtad.</p>
+      <p class="precio">USD</p>
+    </div>
+
+    <!-- Producto 9 -->
+    <div class="producto">
+      <h3>🌐 Acceso Global</h3>
+      <p>Disfruta de los productos desde cualquier lugar y dispositivo.</p>
+      <p class="precio">USD</p>
+    </div>
+
+    <!-- Producto 10 -->
+    <div class="producto">
+      <span class="etiqueta popular">Popular</span>
+      <h3>💡 Innovaciones y Extras</h3>
+      <p>Nuevos artículos añadidos regularmente para mantener tu experiencia fresca.</p>
+      <p class="precio">USD</p>
+    </div>
+  </div>
+</section>
+
+<!-- Cómo Comprar Mejorado -->
+<section id="comprar" class="fade-in">
+  <h2>Cómo Comprar</h2>
+  <p>Sigue estos simples pasos para adquirir tus productos de manera segura y rápida en <strong>Urbix Roleplay</strong>:</p>
+
+  <div class="comprar-grid">
+    <div class="paso">
+      <div class="numero">1</div>
+      <h3>Elige tu producto</h3>
+      <p>Explora nuestra tienda y selecciona el artículo que deseas comprar.</p>
+    </div>
+    <div class="paso">
+      <div class="numero">2</div>
+      <h3>Contacta con soporte</h3>
+      <p>Envía un mensaje a nuestro equipo por Discord o dentro del servidor para confirmar tu compra.</p>
+    </div>
+    <div class="paso">
+      <div class="numero">3</div>
+      <h3>Realiza el pago seguro</h3>
+      <p>Paga de manera rápida y segura a través de nuestros métodos confiables.</p>
+    </div>
+    <div class="paso">
+      <div class="numero">4</div>
+      <h3>Recibe tu producto</h3>
+      <p>Tu vehículo, propiedad o paquete será entregado directamente dentro del juego.</p>
+    </div>
+    <div class="paso">
+      <div class="numero">5</div>
+      <h3>Disfruta y comparte</h3>
+      <p>Disfruta tu nuevo artículo y comparte tu experiencia con la comunidad de Urbix Roleplay.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Contacto Mejorado y organizado -->
+<section id="contacto" class="fade-in">
+  <h2 class="contacto-titulo">Contacto</h2>
+  <p>Si tienes dudas o necesitas asistencia, envianos un mensaje por aqui para ayudarte.</p>
+
+  <form id="contactForm" class="contacto-form">
+    <div class="input-group">
+      <input type="text" name="nombre" placeholder="Nombre" required>
+    </div>
+    <div class="input-group">
+      <input type="email" name="email" placeholder="Correo" required>
+    </div>
+    <div class="input-group">
+      <textarea name="mensaje" placeholder="Mensaje" rows="5" required></textarea>
+    </div>
+    <button type="submit" class="btn-primary">Enviar Mensaje</button>
+  </form>
+
+<!-- Info de contacto debajo -->
+<div class="contacto-info">
+    <h3>También puedes contactarnos en:</h3>
+    <p>Discord: <strong><a href="https://discord.gg/sE3KZmBNr2" target="_blank" class="link-discord">https://discord.gg/sE3KZmBNr2</a></strong></p>
+    <p>Soporte rápido y dedicado para todos nuestros clientes.</p>
+</div>
+
+<!-- Footer Simple -->
+<footer class="footer">
+  <p><span class="footer-nombre">Tienda GTA | Urbix Roleplay</span> <br>© 2025 Todos los derechos reservados.</p>
+</footer>
+
+<!-- Scripts -->
+<script src="script.js"></script>
+<script src="particles.js"></script>
+<script>
+  // Menu móvil
+  const mobileMenu = document.getElementById('mobile-menu');
+  const navList = document.querySelector('.nav-list');
+  mobileMenu.addEventListener('click', () => {
+    navList.classList.toggle('active');
+  });
+</script>
+
+<!-- EmailJS SDK -->
+<script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script type="text/javascript">
+  (function(){
+    emailjs.init("54POSR7HehNxP-bEH"); // Reemplaza con tu User ID de EmailJS
+  })();
+
+  // Conectar formulario con EmailJS
+  const contactForm = document.getElementById('contactForm');
+  contactForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    emailjs.sendForm('service_7rfwe2q', 'template_ygfzdr6', this)
+      .then(() => {
+        alert('¡Mensaje enviado correctamente! Gracias por contactarnos.');
+        contactForm.reset();
+      }, (error) => {
+        alert('Ocurrió un error al enviar el mensaje. Intenta nuevamente.');
+        console.error('EmailJS Error:', error);
+      });
+  });
+</script>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script>
+  
+  // Configuración de Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyCykHh0n-qNMDLtygDVCp0fUGgVoHlrk2k",
+    authDomain: "urbix-roleplay-shop.firebaseapp.com",
+    projectId: "urbix-roleplay-shop",
+    storageBucket: "urbix-roleplay-shop.firebasestorage.app",
+    messagingSenderId: "1020971611441",
+    appId: "1:1020971611441:web:6747b2bd362b2f70c0ac10",
+    measurementId: "G-KWR7CF9RGY"
+  };
+
+  // Inicializar Firebase
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+// Mantener sesión activa
+auth.onAuthStateChanged(user => {
+  if(user){
+    console.log('Usuario logueado:', user.email);
+
+    let nombreUsuario;
+
+    // Si el usuario tiene displayName configurado
+    if (user.displayName) {
+      nombreUsuario = user.displayName;
+    } else {
+      // Sacar nombre antes del @
+      nombreUsuario = user.email.split("@")[0];
+    }
+
+    // Mostrarlo en pantalla
+    document.getElementById('usuario').textContent = nombreUsuario;
+
+  } else {
+    window.location.href = 'login.html';
+  }
+});
+
+  // Función logout
+  function logout() {
+    auth.signOut().then(() => window.location.href = 'login.html');
+  }
+</script>
+
+</body>
+</html>
